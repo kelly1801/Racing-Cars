@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private float playerRadius;
     private float playerHeight;
-    [SerializeField] private float moveSpeed = 5.0f;
-    [SerializeField] private float rotateSpeed = 30.0f;
+    [SerializeField] private float moveSpeed = 15.0f;
+    [SerializeField] private float rotateSpeed = 15.0f;
 
     private void Awake()
     {

@@ -4,15 +4,41 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static ObjectPool instance;
+    [SerializeField] private GameObject[] prefabsToPool; // The prefab you want to pool
+    [SerializeField] private int amountToPool = 10;
+
+    private List<GameObject> pooledObjects = new List<GameObject>();
+
+    private void Awake()
     {
-        
+        if (instance == null)
+        {
+            instance = this;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        for (int i = 0; i < amountToPool; i++)
+        {
+            int ranIndex = Random.Range(0, prefabsToPool.Length);
+            GameObject obj = Instantiate(prefabsToPool[ranIndex]);
+            obj.SetActive(false);
+            pooledObjects.Add(obj);
+        }
+    }
+
+    public GameObject GetPooledObject()
+    {
+        foreach (var pooledObject in pooledObjects)
+        {
+            if (!pooledObject.activeInHierarchy)
+            {
+                return pooledObject;
+            }
+        }
+
+        return null;
     }
 }
